@@ -345,3 +345,39 @@ body {
 	border: 2px solid var(--color-gold);
 	background: transparent;
 }
+
+.footer-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 150px;
+}
+
+.footer-data {
+	display: flex;
+	justify-content: space-between;
+	flex-basis: 182px;
+	line-height: 50px;
+}
+
+.github {
+	padding-right: 13px;
+}
+
+.rss {
+	line-height: 50px;
+}
+
+.social-list {
+	display: flex;
+	justify-content: space-between;
+	flex-basis: 188px;
+	height: 50px;
+	align-items: center;
+	padding: 0;
+}
+
+.social-icon {
+	width: 32px;
+	height: 32px;
+}
