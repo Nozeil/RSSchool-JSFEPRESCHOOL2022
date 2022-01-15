@@ -83,12 +83,22 @@ body {
 	color: var(--color-gold);
 }
 
-.en {
+.switch-lng-en {
+	cursor: pointer;
 	color: var(--color-gold);
 }
 
-.slash {
+.switch-lng-slash {
 	padding: 0 5px;
+}
+
+.switch-lng-ru {
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+.switch-lng-ru:hover {
+	color: var(--color-gold);
 }
 
 .hero-container {
