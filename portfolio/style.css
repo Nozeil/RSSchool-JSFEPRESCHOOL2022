@@ -236,7 +236,7 @@ body {
 	color: var(--color-white);
 }
 
-.button-autumn {
+.active-button {
 	color: var(--color-black);
 	background-color: var(--color-gold);
 }
