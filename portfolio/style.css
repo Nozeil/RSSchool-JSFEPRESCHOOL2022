@@ -83,22 +83,15 @@ body {
 	color: var(--color-gold);
 }
 
-.switch-lng-en {
-	cursor: pointer;
+.switch-lng-button {
+	background-color: transparent;
+	border: none;
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: 700;
 	color: var(--color-gold);
-}
-
-.switch-lng-slash {
-	padding: 0 5px;
-}
-
-.switch-lng-ru {
 	cursor: pointer;
 	transition: 0.5s;
-}
-
-.switch-lng-ru:hover {
-	color: var(--color-gold);
 }
 
 .hero-container {
@@ -149,7 +142,7 @@ body {
 	transition: 0.5s;
 }
 
-.button:hover {
+.active-lng,.switch-lng-button:hover,.button:hover {
 	color: var(--color-white);
 }
 
@@ -236,7 +229,7 @@ body {
 	color: var(--color-white);
 }
 
-.active-button {
+.active-portfolio-button {
 	color: var(--color-black);
 	background-color: var(--color-gold);
 }
@@ -433,23 +426,23 @@ body {
 	transition: 0.3s ease-in-out;
 }
 
-.burger.is-active {
+.burger.menu-is-active {
 	position: fixed;
 	transition-delay: 0.6s;
 	transform: rotate(45deg);
 	z-index: 10;
 }
 
-.burger.is-active>.second-line {
+.burger.menu-is-active .second-line {
 	width: 0;
 }
 
-.burger.is-active>.first-line {
+.burger.menu-is-active .first-line {
 	transition-delay: 0.3s;
 	transform: translateY(14px);
 }
 
-.burger.is-active>.third-line {
+.burger.menu-is-active .third-line {
 	transition-delay: 0.3s;
 	transform: translateY(-14px) rotate(90deg);
 }
@@ -488,7 +481,7 @@ body {
 		transition: 0.5s ease-in-out;
 	}
 
-	.transparent-bg.is-active {
+	.transparent-bg.menu-is-active {
 		width: 100vw;
 		height: 100vh;
 		z-index: 1;
@@ -501,7 +494,7 @@ body {
 		display: flex;
 	}
 
-	.burger:hover>.burger-line {
+	.burger:hover .burger-line {
 		background-color: var(--color-gold);
 	}
 
@@ -516,10 +509,11 @@ body {
 		transition: 1s;
 	}
 
-	.nav.is-active {
+	.nav.menu-is-active {
 		right: 0;
 		background-color: var(--color-black);
 		z-index: 10;
+		overflow-y: scroll;
 	}
 
 	.nav-list {
@@ -541,14 +535,6 @@ body {
 
 	.switch-lng {
 		margin: 0 75px 0 auto;
-	}
-
-	.switch-lng-slash {
-    padding: 0 13px 0 5px;
-	}
-
-	.swicth-lng-ru {
-		margin-left: 10px;
 	}
 
 	.hero-container {
