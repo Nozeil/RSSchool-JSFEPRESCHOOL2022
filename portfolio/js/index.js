@@ -8,6 +8,9 @@ const portfolioBtns = document.querySelectorAll('.portfolio-button');
 const seasons = ['Winter', 'Spring', 'Summer', 'Autumn'];
 const switchLng = document.querySelector('.switch-lng');
 const lngButtons = document.querySelectorAll('.switch-lng-button');
+const themeIconLogo = document.querySelector('.theme-icon-logo');
+const themeButton = document.querySelector('.theme-button');
+let lightElems = ['.body', '.header-container', '.nav', '.icon', '.theme-icon', '.switch-lng-button', '.burger-line', '.hero-container', '.link', , '.button', '.section-title', '.section-title-container', '.dollars-price', '.contact-container', '.section-title-contact', '.input', '.textarea'];
 
 function toogleMenuClass() {
 	burger.classList.toggle('menu-is-active');
@@ -60,7 +63,7 @@ function getTranslate(language) {
 	const dataI18n = document.querySelectorAll('[data-i18n]');
 	dataI18n.forEach(el => {
 		if (el.placeholder) el.placeholder = translateEnRuObj[language][el.dataset.i18n];
-		el.innerHTML = translateEnRuObj[language][el.dataset.i18n];
+		else el.innerHTML = translateEnRuObj[language][el.dataset.i18n];
 	});
 }
 
@@ -71,8 +74,20 @@ function changeLanguageBtnsClass(event) {
 	}
 }
 
-switchLng.addEventListener('click',changeLanguageBtnsClass);
+switchLng.addEventListener('click', changeLanguageBtnsClass);
 
 switchLng.addEventListener('click', getTranslate);
+
+function changeThemeLogo() {
+	themeIconLogo.classList.toggle('light-theme');
+	lightElems.forEach(elem => document.querySelectorAll(elem).forEach(elOfcollection => elOfcollection.classList.toggle('light-theme')));
+
+	if (themeIconLogo.classList.contains('light-theme')) themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#moon';
+	else themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#sun';
+}
+
+themeButton.addEventListener('click', changeThemeLogo);
+
+
 
 console.log('1.Вёрстка соответствует макету. Ширина экрана 768px +48.\n2.Ни на одном из разрешений до 320px включительно не появляется горизонтальная полоса прокрутки. Весь контент страницы при этом сохраняется: не обрезается и не удаляется +15.\n3.На ширине экрана 768рх и меньше реализовано адаптивное меню +22.\nTotal 85/85 => 75');
