@@ -6,19 +6,21 @@ const portfolioImgs = document.querySelectorAll('.portfolio-image');
 const sectionPortfolioBtns = document.querySelector('.section-portfolio-buttons');
 const portfolioBtns = document.querySelectorAll('.portfolio-button');
 const seasons = ['Winter', 'Spring', 'Summer', 'Autumn'];
-const switchLng = document.querySelector('.switch-lng');
+const lngDiv = document.querySelector('.switch-lng');
 const lngButtons = document.querySelectorAll('.switch-lng-button');
 const themeIconLogo = document.querySelector('.theme-icon-logo');
 const themeButton = document.querySelector('.theme-button');
 let lightElems = ['.body', '.header-container', '.nav', '.icon', '.theme-icon', '.switch-lng-button', '.burger-line', '.hero-container', '.link', , '.button', '.section-title', '.section-title-container', '.dollars-price', '.contact-container', '.section-title-contact', '.input', '.textarea'];
+let lang = 'EN';
+let theme = 'darkTheme';
 
-function toogleMenuClass() {
+function toggleMenuClass() {
 	burger.classList.toggle('menu-is-active');
 	navigation.classList.toggle('menu-is-active');
 	transparentBg.classList.toggle('menu-is-active');
 }
 
-burger.addEventListener('click', toogleMenuClass);
+burger.addEventListener('click', toggleMenuClass);
 
 function removeMenuClass(event) {
 	if (event.target.classList.contains('nav-link')) {
@@ -39,14 +41,14 @@ function changePortfolioImgs(event) {
 
 sectionPortfolioBtns.addEventListener('click', changePortfolioImgs);
 
-function changePortfolioBtnsClass(event) {
+function switchPortfolioBtnsClass(event) {
 	if (event.target.classList.contains('portfolio-button')) {
 		portfolioBtns.forEach(btn => btn.classList.remove('active-portfolio-button'));
 		event.target.classList.add('active-portfolio-button');
 	}
 }
 
-sectionPortfolioBtns.addEventListener('click', changePortfolioBtnsClass);
+sectionPortfolioBtns.addEventListener('click', switchPortfolioBtnsClass);
 
 function preloadImages() {
 	seasons.forEach(season => portfolioImgs.forEach((img, index) => {
@@ -58,8 +60,15 @@ function preloadImages() {
 
 preloadImages();
 
+function switchLang(event) {
+	if (!event.target.classList.contains('active-lng')) {
+		(lang === 'EN') ? lang = 'RU' : lang = 'EN'
+		toggleLanguageBtnsClass();
+		getTranslate(lang);
+	}
+}
+
 function getTranslate(language) {
-	language = document.querySelector('.active-lng').innerHTML.trim();
 	const dataI18n = document.querySelectorAll('[data-i18n]');
 	dataI18n.forEach(el => {
 		if (el.placeholder) el.placeholder = translateEnRuObj[language][el.dataset.i18n];
@@ -67,27 +76,50 @@ function getTranslate(language) {
 	});
 }
 
-function changeLanguageBtnsClass(event) {
-	if (event.target.classList.contains('switch-lng-button')) {
-		lngButtons.forEach(button => button.classList.remove('active-lng'));
-		event.target.classList.add('active-lng');
-	}
+function toggleLanguageBtnsClass() {
+	lngButtons.forEach(button => {
+		button.classList.toggle('active-lng');
+	})
 }
 
-switchLng.addEventListener('click', changeLanguageBtnsClass);
+lngDiv.addEventListener('click', switchLang);
 
-switchLng.addEventListener('click', getTranslate);
-
-function changeThemeLogo() {
-	themeIconLogo.classList.toggle('light-theme');
+function changeTheme() {
+	(theme === 'darkTheme') ? theme = 'lightTheme' : theme = 'darkTheme';
 	lightElems.forEach(elem => document.querySelectorAll(elem).forEach(elOfcollection => elOfcollection.classList.toggle('light-theme')));
 
+	themeIconLogo.classList.toggle('light-theme');
 	if (themeIconLogo.classList.contains('light-theme')) themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#moon';
 	else themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#sun';
 }
 
-themeButton.addEventListener('click', changeThemeLogo);
+themeButton.addEventListener('click', changeTheme);
 
+function setLocalStorage() {
+	localStorage.setItem('lang', lang);
+	localStorage.setItem('theme', theme);
+}
 
+window.addEventListener('beforeunload', setLocalStorage);
+
+function switchActiveLngOnload() {
+	lngButtons.forEach(button => {
+		button.classList.remove('active-lng')
+		if (button.textContent.trim() === lang.trim()) button.classList.add('active-lng');
+	});
+}
+
+function getLocalStorage() {
+	if (localStorage.getItem('lang')) {
+		lang = localStorage.getItem('lang');
+		getTranslate(lang);
+		switchActiveLngOnload();
+	}
+	if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'lightTheme') {
+		changeTheme();
+	}
+}
+
+window.addEventListener('load', getLocalStorage);
 
 console.log('1.Вёрстка соответствует макету. Ширина экрана 768px +48.\n2.Ни на одном из разрешений до 320px включительно не появляется горизонтальная полоса прокрутки. Весь контент страницы при этом сохраняется: не обрезается и не удаляется +15.\n3.На ширине экрана 768рх и меньше реализовано адаптивное меню +22.\nTotal 85/85 => 75');
