@@ -13,6 +13,7 @@ const themeButton = document.querySelector('.theme-button');
 let lightElems = ['.body', '.header-container', '.nav', '.icon', '.theme-icon', '.switch-lng-button', '.burger-line', '.hero-container', '.link', , '.button', '.section-title', '.section-title-container', '.dollars-price', '.contact-container', '.section-title-contact', '.input', '.textarea'];
 let lang = 'EN';
 let theme = 'darkTheme';
+const buttons = document.querySelectorAll('.button');
 
 function toggleMenuClass() {
 	burger.classList.toggle('menu-is-active');
@@ -121,5 +122,39 @@ function getLocalStorage() {
 }
 
 window.addEventListener('load', getLocalStorage);
+
+function createButtonClickEffect() {
+
+	const clickEffect = document.createElement('div');
+
+	function findClickCoords(event) {
+		let clickCoords = event.target.getBoundingClientRect();
+		const xCoord = event.clientX - clickCoords.left;
+		const yCoord = event.clientY - clickCoords.top;
+		createCircle(xCoord, yCoord);
+	}
+
+	function createCircle(x, y) {
+		clickEffect.className = 'button-click-effect';
+		clickEffect.style.top = y + 'px';
+		clickEffect.style.left = x + 'px';
+	}
+
+	function removeCircle() {
+		setTimeout(() => clickEffect.remove(), 500);
+	}
+
+	function test(event) {
+		findClickCoords(event);
+		event.target.append(clickEffect);
+		removeCircle();
+	}
+
+	buttons.forEach(button => {
+		button.addEventListener('click', test);
+	})
+}
+
+createButtonClickEffect();
 
 console.log('1.Вёрстка соответствует макету. Ширина экрана 768px +48.\n2.Ни на одном из разрешений до 320px включительно не появляется горизонтальная полоса прокрутки. Весь контент страницы при этом сохраняется: не обрезается и не удаляется +15.\n3.На ширине экрана 768рх и меньше реализовано адаптивное меню +22.\nTotal 85/85 => 75');
