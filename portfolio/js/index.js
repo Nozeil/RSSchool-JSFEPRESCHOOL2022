@@ -62,9 +62,9 @@ function preloadImages() {
 preloadImages();
 
 function switchLang(event) {
-	if (!event.target.classList.contains('active-lng')) {
-		(lang === 'EN') ? lang = 'RU' : lang = 'EN'
-		toggleLanguageBtnsClass();
+	if (event.target.classList.contains('inactive-lng')) {
+		(lang === 'RU') ? lang = 'EN' : lang = 'RU';
+		switchLanguageBtnsClass();
 		getTranslate(lang);
 	}
 }
@@ -77,9 +77,16 @@ function getTranslate(language) {
 	});
 }
 
-function toggleLanguageBtnsClass() {
+function switchLanguageBtnsClass() {
 	lngButtons.forEach(button => {
-		button.classList.toggle('active-lng');
+		if (button.classList.contains('active-lng')) {
+			button.classList.remove('active-lng');
+			button.classList.add('inactive-lng');
+		}
+		else if (button.classList.contains('inactive-lng')) {
+			button.classList.remove('inactive-lng');
+			button.classList.add('active-lng');
+		}
 	})
 }
 
@@ -103,18 +110,11 @@ function setLocalStorage() {
 
 window.addEventListener('beforeunload', setLocalStorage);
 
-function switchActiveLngOnload() {
-	lngButtons.forEach(button => {
-		button.classList.remove('active-lng')
-		if (button.textContent.trim() === lang.trim()) button.classList.add('active-lng');
-	});
-}
-
 function getLocalStorage() {
 	if (localStorage.getItem('lang')) {
 		lang = localStorage.getItem('lang');
 		getTranslate(lang);
-		switchActiveLngOnload();
+		if (lang === 'RU') switchLanguageBtnsClass();
 	}
 	if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'lightTheme') {
 		changeTheme();
@@ -144,17 +144,16 @@ function createButtonClickEffect() {
 		setTimeout(() => clickEffect.remove(), 500);
 	}
 
-	function test(event) {
+	function makeEffect(event) {
 		findClickCoords(event);
 		event.target.append(clickEffect);
 		removeCircle();
 	}
 
 	buttons.forEach(button => {
-		button.addEventListener('click', test);
+		button.addEventListener('click', makeEffect);
 	})
 }
 
 createButtonClickEffect();
 
-console.log('1.Вёрстка соответствует макету. Ширина экрана 768px +48.\n2.Ни на одном из разрешений до 320px включительно не появляется горизонтальная полоса прокрутки. Весь контент страницы при этом сохраняется: не обрезается и не удаляется +15.\n3.На ширине экрана 768рх и меньше реализовано адаптивное меню +22.\nTotal 85/85 => 75');
