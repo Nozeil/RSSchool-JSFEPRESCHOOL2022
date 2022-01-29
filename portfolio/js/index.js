@@ -35,7 +35,7 @@ navigation.addEventListener('click', removeMenuClass);
 
 function changePortfolioImgs(event) {
 	if (event.target.classList.contains('portfolio-button')) {
-		portfolioImgs.forEach((img, index) => img.src = `assets/img/${event.target.dataset.i18n}/portfolio-img-${index + 1}.jpg`
+		portfolioImgs.forEach((img, index) => img.src = `./assets/img/${event.target.dataset.i18n}/portfolio-img-${index + 1}.jpg`
 		);
 	}
 }
@@ -54,7 +54,7 @@ sectionPortfolioBtns.addEventListener('click', switchPortfolioBtnsClass);
 function preloadImages() {
 	seasons.forEach(season => portfolioImgs.forEach((img, index) => {
 		img = new Image();
-		img.src = `assets/img/${season}/portfolio-img-${index + 1}.jpg`;
+		img.src = `./assets/img/${season}/portfolio-img-${index + 1}.jpg`;
 	})
 	)
 }
