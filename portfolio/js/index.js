@@ -97,8 +97,8 @@ function changeTheme() {
 	lightElems.forEach(elem => document.querySelectorAll(elem).forEach(elOfcollection => elOfcollection.classList.toggle('light-theme')));
 
 	themeIconLogo.classList.toggle('light-theme');
-	if (themeIconLogo.classList.contains('light-theme')) themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#moon';
-	else themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#sun';
+	if (themeIconLogo.classList.contains('light-theme')) themeIconLogo.href.baseVal = './assets/svg/sprite.svg#moon';
+	else themeIconLogo.href.baseVal = './assets/svg/sprite.svg#sun';
 }
 
 themeButton.addEventListener('click', changeTheme);
