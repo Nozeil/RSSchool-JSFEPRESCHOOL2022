@@ -35,7 +35,7 @@ navigation.addEventListener('click', removeMenuClass);
 
 function changePortfolioImgs(event) {
 	if (event.target.classList.contains('portfolio-button')) {
-		portfolioImgs.forEach((img, index) => img.src = `assets/img/${event.target.dataset.i18n}/portfolio-img-${index + 1}.jpg`
+		portfolioImgs.forEach((img, index) => img.src = `./assets/img/${event.target.dataset.i18n}/portfolio-img-${index + 1}.jpg`
 		);
 	}
 }
@@ -54,7 +54,7 @@ sectionPortfolioBtns.addEventListener('click', switchPortfolioBtnsClass);
 function preloadImages() {
 	seasons.forEach(season => portfolioImgs.forEach((img, index) => {
 		img = new Image();
-		img.src = `assets/img/${season}/portfolio-img-${index + 1}.jpg`;
+		img.src = `./assets/img/${season}/portfolio-img-${index + 1}.jpg`;
 	})
 	)
 }
@@ -97,8 +97,8 @@ function changeTheme() {
 	lightElems.forEach(elem => document.querySelectorAll(elem).forEach(elOfcollection => elOfcollection.classList.toggle('light-theme')));
 
 	themeIconLogo.classList.toggle('light-theme');
-	if (themeIconLogo.classList.contains('light-theme')) themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#moon';
-	else themeIconLogo.href.baseVal = 'assets/svg/sprite.svg#sun';
+	if (themeIconLogo.classList.contains('light-theme')) themeIconLogo.href.baseVal = './assets/svg/sprite.svg#moon';
+	else themeIconLogo.href.baseVal = './assets/svg/sprite.svg#sun';
 }
 
 themeButton.addEventListener('click', changeTheme);
