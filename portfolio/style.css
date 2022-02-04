@@ -372,14 +372,16 @@ html {
 	height: 560px;
 }
 
+.section-video {
+	align-items: center;
+}
+
 .section-video-player {
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	max-width: 1400px;
-	max-height: 645px;
-	height: 45vw;
+	width: 100%;
 }
 
 .poster {
@@ -945,11 +947,6 @@ html {
 		width: 100vw;
 	}
 
-	.section-video-player {
-		max-width: 768px;
-		height: 46.5vw;
-	}
-
 	.controls {
 		height: 6vw;
 	}
@@ -1075,11 +1072,6 @@ html {
 		width: 100%;
 	}
 
-	.section-video-player {
-		height: fit-content;
-		width: fit-content;
-	}
-
 	.price-item {
 		width: 100%;
 		justify-content: space-around;
@@ -1135,10 +1127,6 @@ html {
 
 	:root {
 		--font-size-8: 6px;
-	}
-
-	.video-player {
-		width: 99%;
 	}
 
 	.switch-lng {
