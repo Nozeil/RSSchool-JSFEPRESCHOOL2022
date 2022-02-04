@@ -170,7 +170,6 @@ const smallPlayButtonIcon = document.querySelectorAll('.small-play-button-icon')
 const poster = document.querySelector('.poster');
 const currentVideoTimeSpan = document.querySelector('.current-video-time');
 const videoDurationSpan = document.querySelector('.video-duration');
-const progressCoefficent = 100 / videoPlayer.duration;
 let lastVolume;
 
 function toPlayOrPause() {
@@ -256,6 +255,7 @@ function hidePoster() {
 }
 
 function changeProgressBackground() {
+	const progressCoefficent = 100 / videoPlayer.duration;
 	progressBar.style.background = `linear-gradient(to right, var(--color-gold) 0%, var(--color-gold) ${progressBar.value * progressCoefficent}%, var(--color-grey) 0%, var(--color-grey) 0%`;
 }
 
