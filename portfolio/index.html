@@ -164,14 +164,46 @@
 				<div class="section-title-container">
 					<h2 class="section-title" data-i18n="video">Video</h2>
 				</div>
+				<!-- Video-player -->
+
 				<div class="section-video-player">
+					<video class="video-player" src="./assets/video/video.mp4"></video>
+					<div class="poster"></div>
 					<button class="play-button">
 						<svg class="icon play-button-icon">
 							<use xlink:href="./assets/svg/sprite.svg#play"></use>
 						</svg>
 					</button>
+					<div class="controls hidden">
+						<button class="small-play-button">
+							<svg class="icon small-play-button-icon">
+								<use xlink:href="./assets/svg/sprite.svg#small-play"></use>
+							</svg>
+							<svg class="icon small-play-button-icon hidden-icon">
+								<use xlink:href="./assets/svg/sprite.svg#small-pause"></use>
+							</svg>
+						</button>
+
+						<input class="progress-bar" type="range" value="0" min="0" max="100" step="1">
+						<div class="video-timing">
+							<span class="current-video-time">0:00</span>
+							<span>/</span>
+							<span class="video-duration">0:59</span>
+						</div>
+						<button class="volume-button">
+							<svg class="icon mute volume-button-icon">
+								<use class="mute" xlink:href="./assets/svg/sprite.svg#unmute"></use>
+							</svg>
+							<svg class="icon volume-button-icon hidden-icon">
+								<use xlink:href="./assets/svg/sprite.svg#mute"></use>
+							</svg>
+						</button>
+						<input class="volume-bar" type="range" value="100" min="0" max="100" step="1">
+
+					</div>
 				</div>
 			</section>
+
 			<section class="section section-price" id="price">
 				<div class="section-title-container">
 					<h2 class="section-title" data-i18n="price">
