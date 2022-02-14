@@ -1,14 +1,21 @@
+function getContainer(container) {
+	return document.querySelector(container);
+}
+
+function appendItem(container, el) {
+	getContainer(container).append(el);
+}
+
+function clearContainer(container) {
+	return getContainer(container).innerHTML = '';
+}
+
 class Card {
 
-	getMainContainer() {
-		const mainContainer = document.querySelector('.main-container');
-		return mainContainer;
-	}
-
-	createCard(path, rating, title, titleClassName, overviewText) {
+	createCard(path, rating, titleClassName, title, overviewText) {
 		const div = document.createElement('div');
 		div.className = 'card';
-		div.append(this.createPoster(path), this.createRating(rating), this.createTitle(title, titleClassName), this.createOverview(overviewText));
+		div.append(this.createPoster(path), this.createRating(rating), this.createTitle(titleClassName, title), this.createOverview(overviewText));
 		return div;
 	}
 
@@ -22,18 +29,14 @@ class Card {
 
 	createRating(rating) {
 		const div = document.createElement('div');
-		if (rating >= 8) {
-			div.className = 'card__rating card__rating_green';
-		} else if (rating >= 5) {
-			div.className = 'card__rating card__rating_orange';
-		} else {
-			div.className = 'card__rating card__rating_red';
-		}
+		(rating >= 8) ? div.className = 'card__rating card__rating_green' :
+			(rating >= 5) ? div.className = 'card__rating card__rating_orange' :
+				div.className = 'card__rating card__rating_red';
 		div.append(rating.toFixed(1));
 		return div;
 	}
 
-	createTitle(title, titleClassName) {
+	createTitle(titleClassName, title) {
 		const h3 = document.createElement('h3');
 		h3.className = titleClassName;
 		h3.append(title);
@@ -43,12 +46,8 @@ class Card {
 	createOverview(text) {
 		const div = document.createElement('div');
 		div.className = 'overview';
-		div.append(this.createTitle('Overview', 'overview__title'), text);
+		div.append(this.createTitle('overview__title', 'Overview'), text);
 		return div;
-	}
-
-	appendCard(el) {
-		this.getMainContainer().append(el);
 	}
 
 }
@@ -58,19 +57,12 @@ const card = new Card();
 async function getPopularFilmsData() {
 	const response = await fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=1bf5e62d3406ea36ddc8563c7b71f2de');
 	const data = await response.json();
-	data.results.forEach(result => {
-		card.appendCard(card.createCard(result.poster_path, result.vote_average, result.title, 'card__title', result.overview))
-	});
+	data.results.forEach(result => appendItem('.main-container', card.createCard(result.poster_path, result.vote_average, 'card__title', result.title, result.overview)));
 }
 
 getPopularFilmsData();
 
 class Search {
-
-	getHeaderContainer() {
-		const headerContainer = document.querySelector('.header-container');
-		return headerContainer;
-	}
 
 	createSearch() {
 		const div = document.createElement('div');
@@ -89,39 +81,27 @@ class Search {
 		const input = document.createElement('input');
 		input.className = 'search__input';
 		input.type = 'search';
-		input.name = 'q';
 		input.placeholder = 'Search movie';
 		input.autofocus = true;
 		input.autocomplete = 'off';
 		input.addEventListener('keydown', (event) => {
-			if (event.code === 'Enter') {
+			if (event.code === 'Enter' || event.code === 'NumpadEnter') {
 				searchData(input.value);
 			}
 		})
 		return input;
 	}
 
-	appendSearch() {
-		this.getHeaderContainer().append(this.createSearch());
-	}
-
 }
 
 const search = new Search();
-search.appendSearch();
+appendItem('.header-container', search.createSearch());
 
 async function searchData(word) {
 	const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=1bf5e62d3406ea36ddc8563c7b71f2de&query=${word}`);
 	const data = await response.json();
-	card.getMainContainer().innerHTML = '';
-	data.results.forEach(result => {
-		card.appendCard(card.createCard(result.poster_path, result.vote_average, result.title, 'card__title', result.overview))
-	});
-}
-
-function getContainer(container) {
-	container = document.querySelector(container);
-	return container;
+	clearContainer('.main-container');
+	data.results.forEach(result => appendItem('.main-container', card.createCard(result.poster_path, result.vote_average, 'card__title', result.title, result.overview)));
 }
 class Footer {
 
