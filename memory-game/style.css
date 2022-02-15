@@ -1,0 +1,64 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.body {
+	width: 100vw;
+	height: 100vh;
+	backdrop-filter: blur(2px);
+	background-image: url(./assets/png/bg.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 95%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.header, .footer {
+	height: 8%;
+}
+
+.main {
+	height: 84%;
+}
+
+.game {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+}
+
+.cards {
+	width: 80%;
+	height: 100%;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	height: 100%;
+}
+
+.info__score {
+	width: 100%;
+	height: 20%;
+}
+
+.info__about {
+	width: 100%;
+	height: 80%;
+}
+
+
