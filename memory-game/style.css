@@ -1,3 +1,31 @@
+:root {
+	--bg-color: #fad61e;
+	--color-white: #ffffff;
+	--color-grey: #424242;
+	--card-bg-color: #ffde59;
+	--hover-color: #884700;
+	--blue-color: #004a94;
+	--odd-row-color: #facd18;
+	--evolventa-regular: 'EvolventaRegular';
+	--evolventa-bold: 'EvolventaBold';
+}
+
+@font-face {
+	font-family: 'EvolventaRegular';
+	src: url('./assets/fonts/Evolventa-Regular.otf') format('opentype');
+	src: url('./assets/fonts/Evolventa-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EvolventaBold';
+	src: url('./assets/fonts/Evolventa-Bold.otf') format('opentype');
+	src: url('./assets/fonts/Evolventa-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: bold;
+}
+
 * {
 	padding: 0;
 	margin: 0;
@@ -5,60 +33,402 @@
 }
 
 .body {
-	width: 100vw;
-	height: 100vh;
-	backdrop-filter: blur(2px);
-	background-image: url(./assets/png/bg.png);
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+	display: flex;
+	justify-content: center;
+	color: var(--color-grey);
+	background-color: var(--bg-color);
 }
 
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	width: 95%;
-	height: 100%;
-	margin: 0 auto;
-}
-
-.header, .footer {
-	height: 8%;
+	width: calc(1440px - 50px);
+	margin: 50px 50px 0;
+	background-image: url('./assets/png/background.png');
+	background-position: bottom;
+  background-repeat: no-repeat;
 }
 
 .main {
-	height: 84%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: calc(90vh - 50px);
 }
 
 .game {
+	position: relative;
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.game__pokemon-logo {
+	width: 1000px;
+	height: 350px;
+	background-image: url('./assets/svg/pokemon_logo_start.svg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.game__autorization, .game__result {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 50px;
+	align-items: center;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(20px);
+	transform: scale(1);
+	opacity: 1;
+	transition: .5s ease-in-out;
+}
+
+.game__autorization.hidden, .game__result.hidden {
+	opacity: 0;
+	transform: scale(0);
+}
+
+.game__player-name {
+	width: 800px;
+	height: 100px;
+	padding: 0 10px;
+	font-family: var(--evolventa-regular);
+	font-size: 50px;
+	color: var(--color-grey);
+	border: 3px solid var(--blue-color);
+	background-color: var(--bg-color);
+	text-align: center;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0 0 10px 0 var(--color-grey);
+}
+
+.game__play-button, .game__restart-button {
+	width: 120px;
+	height: 120px;
+}
+
+.game__play-button,.game__restart-button,.game__volume-button {
+	border-radius: 50%;
+	outline: none;
+	border: none;
+	background-color: var(--blue-color);
+	box-shadow: 0 0 20px 0px var(--color-white);
+	cursor: pointer;
+	transform: scale(1);
+	transition: .3s;
+}
+
+.game__play-button {
+	animation: play-pulse 3s ease-in-out infinite;
+}
+
+.game__restart-button {
+	animation: pulse 3s ease-in-out infinite;
+}
+
+.game__volume-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 60px;
+	height: 60px;
+	animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes play-pulse {
+	0% {
+		box-shadow: 0 0 20px 0 var(--color-white);
+	}
+
+	50% {
+		box-shadow: 0 0 60px 0 var(--color-white);
+	}
+
+	100% {
+		box-shadow: 0 0 20px 0 var(--color-white);
+	}
+}
+
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 20px 5px var(--color-white);
+	}
+
+	50% {
+		box-shadow: 0 0 100px 20px var(--color-white);
+	}
+
+	100% {
+		box-shadow: 0 0 20px 5px var(--color-white);
+	}
+}
+
+.game__play-button:active, .game__restart-button:active, .game__volume-button:active {
+	transform: scale(0.7);
+}
+
+.game__play-button-bg, .game__restart-button-bg, .game__volume-button-bg{
+	width: 100%;
+	height: 100%;
+	fill: var(--bg-color);
+	transition: .5s;
+}
+
+.game__play-button-bg:hover, .game__restart-button-bg:hover, .game__volume-button-bg:hover {
+	fill: var(--color-white);
+}
+
+.game__final-score {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+	align-items: center;
+	width: 500px;
+	height: 300px;
+	font-family: var(--evolventa-bold);
+	font-size: 50px;
+	background-color: var(--bg-color);
+	border-radius: 10px;
+	box-shadow: 0 0 10px 0 var(--color-grey);
+}
+
+.game__text {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 25%;
+	height: 100%;
+}
+
+.game__title {
+	align-self: flex-start;
+	flex-basis: 47%;
+	font-family: var(--evolventa-bold), sans-serif;
+	font-size: 55px;
+	line-height: 60px;
+	letter-spacing: 5px;
+}
+
+.game__moves {
+	display: flex;
+	flex-basis: 53%;
+	font-family: var(--evolventa-bold), sans-serif;
+	font-size: 40px;
+}
+
+.game__cards {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+	flex-basis: 50%;
+	max-height: 650px;	
+	height: 100%;
+	cursor: pointer;
+	perspective: 1000px;
+}
+
+.game__card {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	height: 100%;
-	border-radius: 5px;
+	width: 120px;
+	height: 120px;
+	background-color: var(--card-bg-color);
+	border-radius: 50%;
+	box-shadow: 0 0 5px 0 var(--color-grey);
+	transform: scale(1);
+	transform-style: preserve-3d;
+	transition: transform .5s;
 }
 
-.cards {
+.game__card:hover {
+	animation: gradient-border 3s ease-in-out infinite;
+}
+
+@keyframes gradient-border {
+	0% {
+		border: 2px solid linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(240, 255, 0));
+	}
+
+	100% {
+		border: 2px solid linear-gradient(90deg, rgb(255, 255, 255) 100%, rgb(240, 255, 0));
+	}
+}
+
+.game__static-card {
+	width: 120px;
+	height: 120px;
+	background-image: url('./assets/svg/pokemon_logo.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.game__card:active {
+	transform: scale(0.97);
+	transition: .2s;
+}
+
+.game__front-face, .game__back-face {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	backface-visibility: hidden;
+}
+
+.game__front-face {
 	width: 80%;
-	height: 100%;
-}
-
-.info {
-	display: flex;
-	flex-direction: column;
-	width: 20%;
-	height: 100%;
-}
-
-.info__score {
-	width: 100%;
-	height: 20%;
-}
-
-.info__about {
-	width: 100%;
 	height: 80%;
+	transform: rotateY(180deg)	
 }
+
+.game__card.flipped {
+	transform: rotateY(180deg);
+}
+
+.game__highscore {
+	flex-basis: 25%;
+	max-height: 570px;
+	max-width: 300px;
+	margin-left: auto;
+	border-collapse: collapse;
+}
+
+.game__table-caption {
+	font-family: var(--evolventa-bold);
+	font-size: 25px;
+}
+
+.game__table-header {
+	width: 50%;
+	height: 50px;
+	font-family: var(--evolventa-regular);
+	font-size: 20px;
+}
+
+.game__table-row:nth-child(odd) {
+	background-color: var(--odd-row-color);
+}
+
+.game__table-row:nth-child(even) {
+	background-color: var(--card-bg-color);
+}
+
+.game__table-row {
+	height: 50px;
+}
+
+.game__table-cell {
+	font-family: var(--evolventa-regular);
+	font-size: 20px;
+	text-align: center;
+}
+
+.footer {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 10vh;
+}
+
+.footer__footer-info {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-basis: 50%;
+	height: 100%;
+	gap: 15px;
+	font-family: var(--evolventa-regular);
+	font-size: 25px;
+}
+
+.link {
+	text-decoration: none;
+	color: inherit;
+	letter-spacing: 2px;
+	transition: 1s;
+}
+
+.link:hover {
+	color: var(--hover-color);
+}
+
+
+.footer__rs-link {
+	display: flex;
+	justify-content: flex-end;
+	flex-basis: 25%;
+}
+
+.footer__rs-logo {
+	max-height: 50px;
+	fill: var(--color-grey);
+	transition: .5s;
+}
+
+.footer__rs-logo:hover {
+	fill: var(--hover-color);
+}
+
+
+/* ----svg rsschool logo styles---- */
+
+.st0 { 
+	fill: #fff;
+} 
+
+.st1 { 
+	clip-path: url(#SVGID_2_);
+} 
+
+.st2 { 
+	clip-path: url(#SVGID_4_); 
+} 
+
+.st3 { 
+	clip-path: url(#SVGID_6_); 
+} 
+
+.st4 { 
+	clip-path: url(#SVGID_8_); 
+} 
+
+.st5 { 
+	fill: #fff; 
+	stroke: #000; stroke-width: 4;
+	stroke-miterlimit: 10; 
+} 
+
+.st6 { 
+	clip-path: url(#SVGID_8_); 
+} 
+
+.st6, .st7 { 
+		fill: none; stroke: #000; stroke-width: 4; stroke-miterlimit: 10; 
+} 
+
+.st8, .st9 { 
+	clip-path: url(#SVGID_10_); 
+} 
+
+.st9 { 
+	fill: none; 
+	stroke: #000; 
+	stroke-width: 4; 
+	stroke-miterlimit: 10; 
+}
+
+/* ----svg rsschool logo styles---- */
 
 
