@@ -252,20 +252,6 @@
 	transition: transform .5s;
 }
 
-.game__card:hover {
-	animation: gradient-border 3s ease-in-out infinite;
-}
-
-@keyframes gradient-border {
-	0% {
-		border: 2px solid linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(240, 255, 0));
-	}
-
-	100% {
-		border: 2px solid linear-gradient(90deg, rgb(255, 255, 255) 100%, rgb(240, 255, 0));
-	}
-}
-
 .game__static-card {
 	width: 120px;
 	height: 120px;
